@@ -1,0 +1,26 @@
+{% if clusters %}
+    <table border="1">
+        <caption>Clusters</caption>
+        <meta charset="utf-8">
+        <tr>
+        <th>Cluster 1</th>
+        <th>Cluster 2</th>
+        <th>Cluster 3</th>
+        </tr>
+        <tr>
+        {% for cluster in clusters %}
+        <th>
+
+            <ul>
+            {% for object in cluster %}
+                <li><a href="/cluster/{{ object.id }}/">{{ object.name }}</a></li>
+            {% endfor %}
+            </ul>
+
+        </th>
+        {% endfor %}
+        </tr>
+    </table>
+{% else %}
+    <p>No clusters are available.</p>
+{% endif %}

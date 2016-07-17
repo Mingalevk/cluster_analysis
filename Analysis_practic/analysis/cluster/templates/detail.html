@@ -1,0 +1,28 @@
+<html>
+<ul>
+    <li>ID: {{ object.id}}</li>
+    <li>FIO: {{ object.name}}</li>
+    <li>Group: {{ object.group_number}}</li>
+</ul>
+<table border="1">
+        <caption>Scores</caption>
+        <meta charset="utf-8">
+        <tr>
+        <th>Block 1</th>
+        <th>Block 2</th>
+        <th>Block 3</th>
+        <th>Block 4</th>
+        <th>Block 5</th>
+        <th>Block 6</th>
+        <th>Block 7</th>
+        <th>Block 8</th>
+        <th>Block 9</th>
+        </tr>
+        <tr>
+
+        {% for score in object_scores %}
+            <th>{{score}}</th>
+        {% endfor %}
+
+        </tr>
+</html>
