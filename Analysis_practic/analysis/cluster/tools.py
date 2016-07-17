@@ -1,6 +1,5 @@
 #coding: utf8
 import math
-#from cluster.models import Student, Discipline, Scores
 
 
 class Cluster:
@@ -20,7 +19,6 @@ class Cluster:
     def recalculate_centroid(self):
         coordinate_lists = zip(*(self.objects.values()))  # лист листов 1х, 2х и т.д. координат
         new_centroid_coordinates = map(lambda x: sum(x)/len(x), coordinate_lists)
-        #self.prev_centroid = self.centroid
         self.__calculate_cluster_coordinates()  # координаты кластера для вывода на график
         self.set_centroid(new_centroid_coordinates)  # для вывода нужно преобразовать в list
 
@@ -48,30 +46,20 @@ def k_means(__data, __clusters):
     for num, cluster in enumerate(__clusters, 0):
         cluster.set_centroid(__data[list(__data.keys())[num]])
     clustering(__data, __clusters)
-    #for cluster in clusters:
-    #    cluster.recalculate_centroid()
     [cluster.recalculate_centroid() for cluster in __clusters]  # То же самое, что и две предыдущих строки
     while any(abs(euclidian_distance(cluster.centroid, cluster.prev_centroid)) > 10**-3 for cluster in __clusters):  # С точностью надо будет определиться еще
-        #for cluster in clusters:
-        #    cluster.clear_cluster()
         [cluster.clear_cluster() for cluster in __clusters]
         clustering(__data, __clusters)
-        #for cluster in __clusters:
-        #    cluster.recalculate_centroid()
         [cluster.recalculate_centroid() for cluster in __clusters]
 
 
+#data = {1: [5, 4], 2: [5, 3], 4: [4, 4], 5: [3, 4]}
 
-#data = {int(str(id)): [int(str(s)) for s in Scores.objects.filter(student_id=id)] for id in Student.objects.all()}
-data = {1: [5, 4], 2: [5, 3], 4: [4, 4], 5: [3, 4]}
+#cluster1 = Cluster()
+#cluster2 = Cluster()
+#cluster3 = Cluster()
+#clusters = [cluster1, cluster2, cluster3]
 
-cluster1 = Cluster()
-cluster2 = Cluster()
-cluster3 = Cluster()
-clusters = [cluster1, cluster2, cluster3]
-
-k_means(data, clusters)
-cluster3
-
+#k_means(data, clusters)
 #print(cluster2.centroid, cluster2.objects, cluster2.cluster_coordinates)
 

@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.core import serializers
 from cluster.models import Student, Discipline, Scores
 from cluster.tools import Cluster, k_means
-#from cluster.tools import cluster1, cluster2, cluster3
 
 
 def index(request):
