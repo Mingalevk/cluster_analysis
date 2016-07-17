@@ -20,7 +20,7 @@ class Discipline(models.Model):
 class Scores(models.Model):
     student = models.ForeignKey(Student)
     discipline = models.ForeignKey(Discipline)
-    score = models.IntegerField(default=0)
+    score = models.DecimalField(max_digits=3, decimal_places=2, default=2)
 
     def __str__(self):
         return str(self.score)
