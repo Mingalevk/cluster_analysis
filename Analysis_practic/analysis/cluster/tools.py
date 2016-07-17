@@ -1,6 +1,6 @@
 #coding: utf8
 import math
-#from cluster.models import Student, Discipline, Scores
+from cluster.models import Student, Discipline, Scores
 
 
 class Cluster:
@@ -9,6 +9,7 @@ class Cluster:
         self.prev_centroid = None
         self.cluster_coordinates = None
         self.objects = {}
+        self.students = []
 
     def set_centroid(self, new_centroid):
         self.prev_centroid = list(new_centroid) if self.prev_centroid == None else self.centroid
@@ -16,6 +17,7 @@ class Cluster:
 
     def add_object(self, key, value):
         self.objects.update({key: value})
+        self.__get_student()
 
     def recalculate_centroid(self):
         coordinate_lists = zip(*(self.objects.values()))  # лист листов 1х, 2х и т.д. координат
@@ -30,6 +32,10 @@ class Cluster:
     def __calculate_cluster_coordinates(self):
         coordinate_lists = zip(*(self.objects.values()))  # лист листов 1х, 2х и т.д. координат
         self.cluster_coordinates = list(map(lambda x: sum(x)/len(x)*100, coordinate_lists))
+
+    def __get_student(self):
+        self.students = [Student.objects.get(pk=id) for id in list(self.objects.keys())]
+
 
 
 def euclidian_distance(score1, score2):
@@ -71,7 +77,6 @@ cluster3 = Cluster()
 clusters = [cluster1, cluster2, cluster3]
 
 k_means(data, clusters)
-cluster3
 
 #print(cluster2.centroid, cluster2.objects, cluster2.cluster_coordinates)
 

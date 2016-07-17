@@ -62,7 +62,7 @@ DATABASES = {
     'default': {
         'NAME': 'clusterdb',
         'ENGINE': 'sqlserver_ado',
-        'HOST': 'PC',
+        'HOST': 'DESKTOP-KND5NJ4',
         'USER': '',
         'PASSWORD': '',
         'OPTIONS' : {

@@ -12,7 +12,7 @@
         <th>
 
             <ul>
-            {% for object in cluster %}
+            {% for object in cluster.students %}
                 <li><a href="/cluster/{{ object.id }}/">{{ object.name }}</a></li>
             {% endfor %}
             </ul>

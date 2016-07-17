@@ -4,14 +4,24 @@ from django.http import HttpResponse
 from django.template import RequestContext, loader, Template, Context
 from cluster.models import Student, Discipline, Scores
 from django.http import Http404
-#from cluster.tools import new_centroid
+from cluster.tools import Cluster, k_means
 
 def index(request):
     template = loader.get_template('index2.html')
-    data1 = list(Student.objects.filter(pk=1002))
-    data2 = list(Student.objects.filter(pk=1003))
-    data3 = list(Student.objects.filter(pk=1004))
-    clusters = [data1, data2, data3]
+    data1 = list(Student.objects.filter(pk=1))
+    data2 = list(Student.objects.filter(pk=2))
+    data3 = list(Student.objects.filter(pk=4))
+    data = [Student.objects.get(pk=id) for id in [1, 2]]
+    #clusters = [data, data2, data3]
+
+    data = {int(str(id)): [int(str(s)) for s in Scores.objects.filter(student_id=id)] for id in Student.objects.all()}
+    cluster1 = Cluster()
+    cluster2 = Cluster()
+    cluster3 = Cluster()
+    clusters = [cluster1, cluster2, cluster3]
+    k_means(data, clusters)
+    #clusters2 = [cluster1.students, cluster2.students, cluster3.students]
+
     # {int(str(id)): [int(str(s)) for s in Scores.objects.filter(student_id=id)] for id in Student.objects.all()}
     #data_key = data.keys()
     #data_values = data.values()
