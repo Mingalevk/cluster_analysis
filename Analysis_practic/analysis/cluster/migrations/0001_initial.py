@@ -11,16 +11,41 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Discipline',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('name', models.CharField(max_length=50)),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Scores',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('score', models.IntegerField(default=0)),
+                ('discipline', models.ForeignKey(to='cluster.Discipline')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Student',
             fields=[
-                ('id', models.AutoField(serialize=False, verbose_name='ID', auto_created=True, primary_key=True)),
-                ('first_name', models.CharField(max_length=20)),
-                ('surname', models.CharField(max_length=20)),
-                ('last_name', models.CharField(max_length=20)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('name', models.CharField(default='name', max_length=50)),
                 ('group_number', models.CharField(max_length=7)),
             ],
             options={
             },
             bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='scores',
+            name='student',
+            field=models.ForeignKey(to='cluster.Student'),
+            preserve_default=True,
         ),
     ]

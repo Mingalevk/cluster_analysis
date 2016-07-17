@@ -1,21 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from cluster.models import Student, Discipline, Scores
-from cluster.tools import new_centroid
+from cluster.tools import Cluster, k_means
+#from cluster.tools import cluster1, cluster2, cluster3
+
 
 def index(request):
-
     data = {int(str(id)): [int(str(s)) for s in Scores.objects.filter(student_id=id)] for id in Student.objects.all()}
-    data_key = data.keys()
-    data_values = data.values()
-    centroids = [data_values[0], data_values[1], data_values[2]]
-    new_centroids = []
-    clusters = []
-    for i in clusters:
-        new_centroids.append = new_centroid(clusters[i])
-    centroids = new_centroids
-    new_centroids = []
+    cluster1 = Cluster()
+    cluster2 = Cluster()
+    cluster3 = Cluster()
+    clusters = [cluster1, cluster2, cluster3]
+    k_means(data, clusters)
 
-
-    return HttpResponse(data)
+    return HttpResponse(cluster2.objects.values())
 # Create your views here.
