@@ -66,7 +66,7 @@
 </body>
 {% if clusters %}
     <table border="1">
-        <caption>Clusters</caption>
+        <caption><h3>Clusters</h3></caption>
         <meta charset="utf-8">
         <tr>
         <th>Cluster 1</th>
@@ -84,6 +84,35 @@
             </ul>
 
         </th>
+        {% endfor %}
+        </tr>
+    </table>
+
+    <table border="1">
+        <caption><h3>Clusters average scores by blocks</h3></caption>
+        <meta charset="utf-8">
+        <tr>
+        <th></th>
+        <th>Block 1</th>
+        <th>Block 2</th>
+        <th>Block 3</th>
+            <th>Block 4</th>
+        <th>Block 5</th>
+        <th>Block 6</th>
+        </tr>
+        <tr><th>Cluster 1</th>
+        {% for score in cluster1_centroid %}
+        <th>{{score}}</th>
+        {% endfor %}
+        </tr>
+        <tr><th>Cluster 2</th>
+        {% for score in cluster2_centroid %}
+        <th>{{score}}</th>
+        {% endfor %}
+        </tr>
+        <tr><th>Cluster 3</th>
+        {% for score in cluster3_centroid %}
+        <th>{{score}}</th>
         {% endfor %}
         </tr>
     </table>

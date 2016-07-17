@@ -15,28 +15,28 @@ def index(request):
     clusters = [data1, data2, data3]
     verticals = [s * 100 for s in range(7)]
     horizontals = [s * 100 for s in range(5)]
-    cluster1_centroid = [500, 400, 300, 200, 300, 400]
+    cluster1_centroid = [5, 4, 3, 2, 3, 4]
     i = 100
     cluster1_graphic = []
 
     for score in cluster1_centroid:
-        cluster1_graphic.append(Cluster_graphic(abs(600 - score), i))
+        cluster1_graphic.append(Cluster_graphic(abs(600 - score*100), i))
         i = i + 100
 
-    cluster2_centroid = [300, 400, 500, 400, 200, 300]
+    cluster2_centroid = [3, 4, 5, 4, 2, 3]
     i = 100
     cluster2_graphic = []
 
     for score in cluster2_centroid:
-        cluster2_graphic.append(Cluster_graphic(abs(600 - score), i))
+        cluster2_graphic.append(Cluster_graphic(abs(600 - score*100), i))
         i = i + 100
 
-    cluster3_centroid = [200, 400, 400, 500, 400, 300]
+    cluster3_centroid = [2, 4, 4, 5, 4, 3]
     i = 100
     cluster3_graphic = []
 
     for score in cluster3_centroid:
-        cluster3_graphic.append(Cluster_graphic(abs(600 - score), i))
+        cluster3_graphic.append(Cluster_graphic(abs(600 - score*100), i))
         i = i + 100
 
     context = RequestContext(request, {
@@ -46,6 +46,9 @@ def index(request):
         'cluster1_graphic': cluster1_graphic,
         'cluster2_graphic': cluster2_graphic,
         'cluster3_graphic': cluster3_graphic,
+        'cluster1_centroid': cluster1_centroid,
+        'cluster2_centroid': cluster2_centroid,
+        'cluster3_centroid': cluster3_centroid,
     })
     return HttpResponse(template.render(context))
 
