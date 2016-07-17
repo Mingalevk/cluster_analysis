@@ -31,6 +31,10 @@ class Cluster:
         coordinate_lists = zip(*(self.objects.values()))  # лист листов 1х, 2х и т.д. координат
         self.cluster_coordinates = list(map(lambda x: sum(x)/len(x)*100, coordinate_lists))
 
+class Cluster_graphic():
+    def __init__(self, h_coordinate, v_coordinate):
+        self.h_coordinate = h_coordinate
+        self.v_coordinate = v_coordinate
 
 def euclidian_distance(score1, score2):
     distance = math.sqrt(sum([(x-y)**2 for x, y in zip(score1, score2)]))

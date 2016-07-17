@@ -1,3 +1,69 @@
+<body>
+        <h3><div style="position: absolute; top: 410px;left: 80px;">Block 1</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 180px;">Block 2</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 280px;">Block 3</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 380px;">Block 4</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 480px;">Block 5</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 580px;">Block 6</div></h3>
+
+        <h3><div style="position: absolute; top: 390px;left: 50px;">2</div></h3>
+        <h3><div style="position: absolute; top: 290px;left: 50px;">3</div></h3>
+        <h3><div style="position: absolute; top: 190px;left: 50px;">4</div></h3>
+        <h3><div style="position: absolute; top: 90px;left: 50px;">5</div></h3>
+		<canvas canvas id="example" width="700" height="600" style="border:1px solid #d3d3d3;">Graphics</canvas>
+
+		<script>
+			var example = document.getElementById("example"),
+			ctx = example.getContext('2d');
+			example.height = 500;
+			example.width  = 700;
+			ctx.beginPath();
+			{% for line in verticals %}
+			    ctx.moveTo({{line}}, 0);
+			    ctx.lineTo({{line}}, 400);
+			{% endfor %}
+
+            {% for line in horizontals %}
+			    ctx.moveTo(100, {{line}});
+			    ctx.lineTo(700, {{line}});
+			{% endfor %}
+
+			ctx.strokeStyle = "#d3d3d3";
+			ctx.stroke(); // *22
+		</script>
+
+        <script>
+            ctx.beginPath();
+			{% for point in cluster1_graphic %}
+			    ctx.lineTo({{point.v_coordinate}}, {{point.h_coordinate}});
+			    ctx.moveTo({{point.v_coordinate}}, {{point.h_coordinate}});
+
+			{% endfor %}
+			ctx.strokeStyle = "orange";
+			ctx.stroke(); // *22
+        </script>
+
+        <script>
+            ctx.beginPath();
+			{% for point in cluster2_graphic %}
+			    ctx.lineTo({{point.v_coordinate}}, {{point.h_coordinate}});
+			    ctx.moveTo({{point.v_coordinate}}, {{point.h_coordinate}});
+			{% endfor %}
+			ctx.strokeStyle = "red";
+			ctx.stroke(); // *22
+        </script>
+
+        <script>
+            ctx.beginPath();
+			{% for point in cluster3_graphic %}
+			    ctx.lineTo({{point.v_coordinate}}, {{point.h_coordinate}});
+			    ctx.moveTo({{point.v_coordinate}}, {{point.h_coordinate}});
+			{% endfor %}
+			ctx.strokeStyle = "blue";
+			ctx.stroke(); // *22
+        </script>
+
+</body>
 {% if clusters %}
     <table border="1">
         <caption>Clusters</caption>
