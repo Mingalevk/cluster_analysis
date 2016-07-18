@@ -4,12 +4,19 @@ from cluster.models import Student, Discipline, Scores
 
 
 class Cluster:
+    __i = 0
+
     def __init__(self):
+        Cluster.__i += 1
+        self.name = 'Cluster'+str(Cluster.__i)
         self.centroid = None
         self.prev_centroid = None
-        self.cluster_coordinates = None
+        self.graphic = []
         self.objects = {}
         self.students = []
+
+    def __del__(self):
+        Cluster.__i = 0
 
     def set_centroid(self, new_centroid):
         self.prev_centroid = list(new_centroid) if self.prev_centroid == None else self.centroid
@@ -23,19 +30,26 @@ class Cluster:
         coordinate_lists = zip(*(self.objects.values()))  # лист листов 1х, 2х и т.д. координат
         new_centroid_coordinates = map(lambda x: sum(x)/len(x), coordinate_lists)
         #self.prev_centroid = self.centroid
-        self.__calculate_cluster_coordinates()  # координаты кластера для вывода на график
+        self.__calculate_cluster_graphic()  # координаты кластера для вывода на график
         self.set_centroid(new_centroid_coordinates)  # для вывода нужно преобразовать в list
 
     def clear_cluster(self):
         self.objects.clear()
 
-    def __calculate_cluster_coordinates(self):
-        coordinate_lists = zip(*(self.objects.values()))  # лист листов 1х, 2х и т.д. координат
-        self.cluster_coordinates = list(map(lambda x: sum(x)/len(x)*100, coordinate_lists))
+    def __calculate_cluster_graphic(self):
+        scores_lists = zip(*(self.objects.values()))  # лист листов 1х, 2х и т.д. оценок
+        vcoordinates = list(map(lambda x: sum(x)/len(x)*100, scores_lists))
+        for h, v in enumerate(vcoordinates, 1):
+            self.graphic.append(Point((h * 100.0), abs(600 - v)))
 
     def __get_student(self):
         self.students = [Student.objects.get(pk=id) for id in list(self.objects.keys())]
 
+
+class Point:
+    def __init__(self, h_coordinate, v_coordinate):
+        self.h_coordinate = h_coordinate
+        self.v_coordinate = v_coordinate
 
 
 def euclidian_distance(score1, score2):
@@ -77,6 +91,3 @@ cluster3 = Cluster()
 clusters = [cluster1, cluster2, cluster3]
 
 k_means(data, clusters)
-
-#print(cluster2.centroid, cluster2.objects, cluster2.cluster_coordinates)
-
