@@ -9,22 +9,16 @@ from cluster.tools import Cluster, k_means, Point
 
 def index(request):
     template = loader.get_template('index2.html')
-    data = {int(str(id)): [int(str(s)) for s in Scores.objects.filter(student_id=id)] for id in Student.objects.all()}
+    data = {int(str(id)): [float(str(s)) for s in Scores.objects.filter(student_id=id).order_by('discipline')] for id in Student.objects.all()}
+
     cluster1 = Cluster()
     cluster2 = Cluster()
     cluster3 = Cluster()
     clusters = [cluster1, cluster2, cluster3]
     k_means(data, clusters)
 
-    verticals = [s * 100 for s in range(7)]
-    horizontals = [s * 100 for s in range(5)]
-    lines = [l*100 + i for l in range(1, 3, 1) for i in range(10, 100, 10)]
-
     context = RequestContext(request, {
-        'clusters': clusters,
-        'verticals': verticals,
-        'horizontals': horizontals,
-        'lines': lines
+        'clusters': clusters
     })
     return HttpResponse(template.render(context))
 
@@ -32,7 +26,7 @@ def index(request):
 def detail(request, object_id):
     try:
         object = Student.objects.get(pk=object_id)
-        object_scores = Scores.objects.filter(student=object_id).order_by('-discipline')
+        object_scores = Scores.objects.filter(student=object_id).order_by('discipline')
     except Student.DoesNotExist:
         raise Http404("Student does not exist")
     return render(request, 'detail.html', {'object': object,

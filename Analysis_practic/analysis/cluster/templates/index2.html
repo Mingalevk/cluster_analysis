@@ -1,4 +1,4 @@
-<body>
+﻿<body>
         <h3><div style="position: absolute; top: 410px;left: 80px;">Блок 1</div></h3>
         <h3><div style="position: absolute; top: 410px;left: 180px;">Блок 2</div></h3>
         <h3><div style="position: absolute; top: 410px;left: 280px;">Блок 3</div></h3>
@@ -13,17 +13,18 @@
         <h3><div style="position: absolute; top: 90px;left: 70px;">5</div></h3>
 
 		<div style="position: absolute; top: 100px;left: 750px;">
-		<ul>
-            <h4>
-                <li>Блок 1 -  Администрирование компьютерных систем</li>
-                <li>Блок 2 -  Безопасность информации при передаче по физическим средам</li>
-                <li>Блок 3 -  Вспомогательные дисциплины</li>
-                <li>Блок 4 -  Математический цикл</li>
-                <li>Блок 5 -  Прикладной математический цикл</li>
-                <li>Блок 6 -  Разработка средств защиты информации</li></h4>
-            </ul></div>
+    		<ul>
+                <h4>
+                    <li>Блок 1 -  Администрирование компьютерных систем</li>
+                    <li>Блок 2 -  Безопасность информации при передаче по физическим средам</li>
+                    <li>Блок 3 -  Вспомогательные дисциплины</li>
+                    <li>Блок 4 -  Математический цикл</li>
+                    <li>Блок 5 -  Прикладной математический цикл</li>
+                    <li>Блок 6 -  Разработка средств защиты информации</li></h4>
+            </ul>
+        </div>
 
-		<canvas canvas id="example" width="700" height="600" style="border:1px solid #d3d3d3;">Graphics</canvas>
+		<canvas canvas id="example" width="700" height="500" style="border:1px solid #d3d3d3;">Graphics</canvas>
 
 		<script>
 			var example = document.getElementById("example"),
@@ -31,33 +32,30 @@
 			example.height = 500;
 			example.width  = 700;
 			ctx.lineWidth = 1;
-			ctx.beginPath();
-			{% for line in verticals %}
-			    ctx.moveTo({{line}}, 0);
-			    ctx.lineTo({{line}}, 400);
-			{% endfor %}
+            ctx.strokeStyle = "#d3d3d3";			
 
-            {% for line in horizontals %}
-			    ctx.moveTo(100, {{line}});
-			    ctx.lineTo(600, {{line}});
-			{% endfor %}
+            for (var x = 0; x < 601 ; x += 100) {                
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, 400);
+            }
+            for (var x = 0; x < 701 ; x += 100) {                
+                ctx.moveTo(100, x);
+                ctx.lineTo(600, x);
+            }
+            ctx.stroke();
 
-			ctx.strokeStyle = "#d3d3d3";
-			ctx.stroke(); // *22
-		</script>
-
-        <script>
-			ctx.lineWidth = 0.08;
-			ctx.setLineDash([4, 4]);
+            ctx.lineWidth = 0.08;
+            ctx.setLineDash([4, 4]);
             ctx.lineDashOffset = 2;
+            ctx.strokeStyle = "black";
             ctx.beginPath();
-			{% for line in lines %}
-			    ctx.moveTo(100, {{line}});
-			    ctx.lineTo(600, {{line}});
-			{% endfor %}
-			ctx.strokeStyle = "black";
-			ctx.stroke(); // *22
-        </script>
+            for (var x = 110; x < 300 ; x += 10) {
+                if (x == 200) continue;
+                ctx.moveTo(100, x);
+                ctx.lineTo(600, x);
+            }
+            ctx.stroke();
+		</script>       
 
         <script>
             r = 0; g = 128; b = 255;
@@ -72,36 +70,34 @@
                 r = r + 80;
                 b = b - 80;
                 ctx.strokeStyle = 'rgb('+ r +','+ g +','+ b +')';
-                ctx.stroke(); // *22
+                ctx.stroke();                
             {% endfor %}
         </script>
 
 </body>
 {% if clusters %}
     <table border="1">
-        <caption><h3>Кластеры‹</h3></caption>
+        <caption><h3>Кластеры</h3></caption>
         <meta charset="utf-8">
         <tr>
-        <th>Кластер 1</th>
-        <th>Кластер 2</th>
-        <th>Кластер 3</th>
+        <th style="color:rgb(80, 128, 175)">Кластер 1</th>
+        <th style="color:rgb(160, 128, 95)">Кластер 2</th>
+        <th style="color:rgb(240, 128, 15)">Кластер 3</th>
         </tr>
         <tr>
-        {% for cluster in clusters %}
-        <th>
-
-            <ul>
-            {% for object in cluster.students %}
-                <li><a href="/cluster/{{ object.id }}/">{{ object.name }}</a></li>
-            {% endfor %}
-            </ul>
-
-        </th>
+        {% for cluster in clusters %}        
+            <th>
+                <ul>
+                {% for object in cluster.students %}
+                    <li><a href="/cluster/{{ object.id }}/">{{ object.name }}</a></li>
+                {% endfor %}
+                </ul>
+            </th>
         {% endfor %}
         </tr>
     </table>
 
-    <table border="1">
+    <table border="1" id="averages">
         <caption><h3>Средние баллы по блокам в кластерах</h3></caption>
         <meta charset="utf-8">
         <tr>
@@ -109,20 +105,23 @@
         <th>Администрирование КС</th>
         <th>БИ при передаче по ФС</th>
         <th>Вспомогательные</th>
-            <th>Мат. цикл</th>
+        <th>Мат. цикл</th>
         <th>Прикладной мат. цикл</th>
         <th>Разработка СЗИ</th>
         </tr>
 
-        {% for cluster in clusters%}
-            <tr>
-                <th>{{cluster.name}}</th>
+        <script>         
+            r = 0; g = 128; b = 255;            
+            {% for cluster in clusters%}
+                r = r + 80;
+                b = b - 80;
+                document.getElementById('averages').innerHTML += '<tr id="{{cluster.name}}"><th>{{cluster.name}}</th></tr>';
                 {% for score in cluster.centroid %}
-                    <th>{{score}}</th>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-
+                    document.getElementById('{{cluster.name}}').innerHTML += '<th style="color: rgb('+r+','+g+','+b+')">{{score}}</th>';
+                {% endfor %}                
+            {% endfor %}         
+        </script>
+        
     </table>
 {% else %}
     <p>No clusters are available.</p>

@@ -29,18 +29,17 @@ class Cluster:
     def recalculate_centroid(self):
         coordinate_lists = zip(*(self.objects.values()))  # лист листов 1х, 2х и т.д. координат
         new_centroid_coordinates = map(lambda x: sum(x)/len(x), coordinate_lists)
-        #self.prev_centroid = self.centroid
-        self.__calculate_cluster_graphic()  # координаты кластера для вывода на график
         self.set_centroid(new_centroid_coordinates)  # для вывода нужно преобразовать в list
+        self.__calculate_cluster_graphic(self.centroid)  # координаты кластера для вывода на график
 
     def clear_cluster(self):
+        self.graphic.clear()
         self.objects.clear()
 
-    def __calculate_cluster_graphic(self):
-        scores_lists = zip(*(self.objects.values()))  # лист листов 1х, 2х и т.д. оценок
-        vcoordinates = list(map(lambda x: sum(x)/len(x)*100, scores_lists))
-        for h, v in enumerate(vcoordinates, 1):
-            self.graphic.append(Point((h * 100.0), abs(600 - v)))
+    def __calculate_cluster_graphic(self, centroid):
+        vcoordinates = list(map(lambda x: x*100, centroid))
+        for h, v in enumerate(vcoordinates):
+            self.graphic.append(Point(((h + 1) * 100.0), abs(600 - v)))
 
     def __get_student(self):
         self.students = [Student.objects.get(pk=id) for id in list(self.objects.keys())]
@@ -83,11 +82,11 @@ def k_means(__data, __clusters):
 
 
 #data = {int(str(id)): [int(str(s)) for s in Scores.objects.filter(student_id=id)] for id in Student.objects.all()}
-data = {1: [5, 4], 2: [5, 3], 4: [4, 4], 5: [3, 4]}
+#data = {1: [5, 4], 2: [5, 3], 4: [4, 4], 5: [3, 4]}
 
-cluster1 = Cluster()
-cluster2 = Cluster()
-cluster3 = Cluster()
-clusters = [cluster1, cluster2, cluster3]
+#cluster1 = Cluster()
+#cluster2 = Cluster()
+#cluster3 = Cluster()
+#clusters = [cluster1, cluster2, cluster3]
 
-k_means(data, clusters)
+#k_means(data, clusters)
