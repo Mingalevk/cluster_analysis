@@ -1,17 +1,27 @@
 <body>
-        <h3><div style="position: absolute; top: 410px;left: 80px;">Block 1</div></h3>
-        <h3><div style="position: absolute; top: 410px;left: 180px;">Block 2</div></h3>
-        <h3><div style="position: absolute; top: 410px;left: 280px;">Block 3</div></h3>
-        <h3><div style="position: absolute; top: 410px;left: 380px;">Block 4</div></h3>
-        <h3><div style="position: absolute; top: 410px;left: 480px;">Block 5</div></h3>
-        <h3><div style="position: absolute; top: 410px;left: 580px;">Block 6</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 80px;">Блок 1</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 180px;">Блок 2</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 280px;">Блок 3</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 380px;">Блок 4</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 480px;">Блок 5</div></h3>
+        <h3><div style="position: absolute; top: 410px;left: 580px;">Блок 6</div></h3>
 
         <h3><div style="position: absolute; top: 390px;left: 50px;">2</div></h3>
         <h3><div style="position: absolute; top: 290px;left: 50px;">3</div></h3>
         <h3><div style="position: absolute; top: 190px;left: 50px;">4</div></h3>
         <h3><div style="position: absolute; top: 90px;left: 50px;">5</div></h3>
+		<div style="position: absolute; top: 100px;left: 750px;">
+		<ul>
+            <h4>
+                <li>Блок 1 -  Администрирование компьютерных систем</li>
+				<li>Блок 2 -  Безопасность информации при передаче по физическим средам</li>
+				<li>Блок 3 -  Вспомогательные дисциплины</li>
+				<li>Блок 4 -  Математический цикл</li>
+				<li>Блок 5 -  Прикладной математический цикл</li>
+				<li>Блок 6 -  Разработка средств защиты информации</li></h4>
+            </ul></div>
 		<canvas canvas id="example" width="700" height="600" style="border:1px solid #d3d3d3;">Graphics</canvas>
-
+		
 		<script>
 			var example = document.getElementById("example"),
 			ctx = example.getContext('2d');
@@ -66,12 +76,12 @@
 </body>
 {% if clusters %}
     <table border="1">
-        <caption><h3>Clusters</h3></caption>
+        <caption><h3>Кластеры</h3></caption>
         <meta charset="utf-8">
         <tr>
-        <th>Cluster 1</th>
-        <th>Cluster 2</th>
-        <th>Cluster 3</th>
+        <th>Кластер 1</th>
+        <th>Кластер 2</th>
+        <th>Кластер 3</th>
         </tr>
         <tr>
         {% for cluster in clusters %}
@@ -89,28 +99,28 @@
     </table>
 
     <table border="1">
-        <caption><h3>Clusters average scores by blocks</h3></caption>
+        <caption><h3>Средние баллы по блокам в кластерах</h3></caption>
         <meta charset="utf-8">
         <tr>
         <th></th>
-        <th>Block 1</th>
-        <th>Block 2</th>
-        <th>Block 3</th>
-            <th>Block 4</th>
-        <th>Block 5</th>
-        <th>Block 6</th>
+        <th>Администрирование КС</th>
+        <th>БИ при передаче по ФС</th>
+        <th>Вспомогательные</th>
+            <th>Мат. цикл</th>
+        <th>Прикладной мат. цикл</th>
+        <th>Разработка СЗИ</th>
         </tr>
-        <tr><th>Cluster 1</th>
+        <tr><th>Кластер 1</th>
         {% for score in cluster1_centroid %}
         <th>{{score}}</th>
         {% endfor %}
         </tr>
-        <tr><th>Cluster 2</th>
+        <tr><th>Кластер 2</th>
         {% for score in cluster2_centroid %}
         <th>{{score}}</th>
         {% endfor %}
         </tr>
-        <tr><th>Cluster 3</th>
+        <tr><th>Кластер 3</th>
         {% for score in cluster3_centroid %}
         <th>{{score}}</th>
         {% endfor %}
