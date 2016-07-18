@@ -8,7 +8,7 @@ class Cluster:
 
     def __init__(self):
         Cluster.__i += 1
-        self.name = 'Cluster'+str(Cluster.__i)
+        self.name = 'Кластер'+str(Cluster.__i)
         self.centroid = None
         self.prev_centroid = None
         self.graphic = []
