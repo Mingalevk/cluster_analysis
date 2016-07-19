@@ -24,11 +24,10 @@ class Cluster:
 
     def add_object(self, key, value):
         self.objects.update({key: value})
-        self.__get_student()
 
     def recalculate_centroid(self):
         coordinate_lists = zip(*(self.objects.values()))  # лист листов 1х, 2х и т.д. координат
-        new_centroid_coordinates = map(lambda x: sum(x)/len(x), coordinate_lists)
+        new_centroid_coordinates = map(lambda x: round(sum(x)/len(x), 2), coordinate_lists)
         self.set_centroid(new_centroid_coordinates)  # для вывода нужно преобразовать в list
         self.__calculate_cluster_graphic(self.centroid)  # координаты кластера для вывода на график
 
@@ -41,7 +40,7 @@ class Cluster:
         for h, v in enumerate(vcoordinates):
             self.graphic.append(Point(((h + 1) * 100.0), abs(600 - v)))
 
-    def __get_student(self):
+    def get_students_data(self):
         self.students = [Student.objects.get(pk=id) for id in list(self.objects.keys())]
 
 
@@ -53,7 +52,7 @@ class Point:
 
 def euclidian_distance(score1, score2):
     distance = math.sqrt(sum([(x-y)**2 for x, y in zip(score1, score2)]))
-    return float("%.15f" % distance)
+    return float("%.3f" % distance)
 
 
 def clustering(scores, __clusters):
@@ -66,6 +65,7 @@ def clustering(scores, __clusters):
 def k_means(__data, __clusters):
     for num, cluster in enumerate(__clusters, 0):
         cluster.set_centroid(__data[list(__data.keys())[num]])
+
     clustering(__data, __clusters)
     #for cluster in clusters:
     #    cluster.recalculate_centroid()
@@ -78,6 +78,7 @@ def k_means(__data, __clusters):
         #for cluster in __clusters:
         #    cluster.recalculate_centroid()
         [cluster.recalculate_centroid() for cluster in __clusters]
+    [cluster.get_students_data() for cluster in __clusters]
 
 
 

@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.template import RequestContext, loader, Template, Context
 from cluster.models import Student, Discipline, Scores
-from django.http import Http404
 from cluster.tools import Cluster, k_means, Point
 
 
