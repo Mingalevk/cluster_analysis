@@ -1,0 +1,9 @@
+{% if data %}
+    <ul>
+    {% for object in data %}
+        <li><a href="/cluster/{{ object.id }}/">{{ object.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No clusters are available.</p>
+{% endif %}

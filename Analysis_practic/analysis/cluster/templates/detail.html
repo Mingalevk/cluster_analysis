@@ -1,0 +1,25 @@
+﻿<html>
+<ul>
+    <li>ID: {{ object.id}}</li>
+    <li>ФИО: {{ object.name}}</li>
+    <li>Группа: {{ object.group_number}}</li>
+</ul>
+<table border="1">
+        <caption><h3>Оценки</h3></caption>
+        <meta charset="utf-8">
+        <tr>
+        <th>Администрирование КС</th>
+        <th>БИ при передаче по ФС</th>
+        <th>Вспомогательные</th>
+        <th>Мат. цикл</th>
+        <th>Прикладной мат. цикл</th>
+        <th>Разработка СЗИ</th>
+        </tr>
+        <tr>
+
+        {% for score in object_scores %}
+            <th>{{score}}</th>
+        {% endfor %}
+
+        </tr>
+</html>

@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Discipline',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=50)),
             ],
             options={
@@ -23,8 +23,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Scores',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('score', models.IntegerField(default=0)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('score', models.DecimalField(default=2, decimal_places=2, max_digits=3)),
                 ('discipline', models.ForeignKey(to='cluster.Discipline')),
             ],
             options={
@@ -34,8 +34,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Student',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
-                ('name', models.CharField(default='name', max_length=50)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50, default='name')),
                 ('group_number', models.CharField(max_length=7)),
             ],
             options={
